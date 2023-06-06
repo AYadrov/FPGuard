@@ -1,0 +1,14 @@
+Output  mode      = union ;
+
+Branch  precision = 0.01 ,
+    number = +oo ;
+
+Constants
+    safe = 0.1 ;
+
+Variables
+    real x in [-1.0, 1.0] ,
+    real y in [-1.0, 1.0] ;
+
+Constraints
+    min(y - (x**2) + safe, -(y - (x**2)) + safe) <= 0 ;
