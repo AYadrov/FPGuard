@@ -10,7 +10,7 @@ sys.path.append("//function_transforms")
 sys.path.append("//rival_python")
 
 from rival import *
-from function_transforms.process_function_ import process_function_
+from process_function_ import process_function_
 
 DEPTH = 3
 

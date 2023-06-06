@@ -6,6 +6,18 @@ from function_transforms.process_function_ import process_function_
 
 
 def rival_check(boxes, expressions, divExpressions, variables):
+    """
+    Description:
+        This function goes through all the given divExpression and check for errors using Rival on the given boxes
+    Input:
+        boxes: Valid boxes that guarantee not to have division error in them
+        expressions: Computational tree of all the expressions within an input program
+        divExpressions: All the division expressions that exist in the input program
+        variables: A pointer to the variables within a computational graph (by changing them - we change intervals that
+            are given to Rival as well)
+    Output:
+        None
+    """
     for exp in divExpressions:
         arguments = expressions[exp].getArgs()
 

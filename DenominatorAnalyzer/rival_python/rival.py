@@ -1,6 +1,7 @@
 import bigfloat as bf
 from enum import Enum
 
+
 class op(Enum):
     add = 1
     sub = 2
@@ -286,6 +287,7 @@ def clamp_strict(lo, hi, x):
         x.err_possible or bf.lessequal(x.lo, lo) or bf.greaterequal(x.hi, hi),
         x.err_exact or bf.lessequal(x.hi, lo) or bf.greaterequal(x.lo, hi)
     )
+
 
 def clamp(lo, hi, x):
     return ival(
