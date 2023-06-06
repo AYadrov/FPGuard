@@ -1,8 +1,0 @@
-
-Variable
-  a in [1,2],
-  b in [-4,8];
-
-Constraint
-    b^3 = -8, b=-2
-;
