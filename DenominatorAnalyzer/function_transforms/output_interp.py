@@ -4,15 +4,6 @@ import sys
 
 from expression_walker import walk
 from pass_utils import INFIX, UNOPS
-try:
-    import gelpia_logging as logging
-    import color_printing as color
-except ModuleNotFoundError:
-    sys.path.append("../")
-    import gelpia_logging as logging
-    import color_printing as color
-logger = logging.make_module_logger(color.cyan("output_interp"),
-                                    logging.HIGH)
 
 
 def output_interp(exp, inputs, consts):

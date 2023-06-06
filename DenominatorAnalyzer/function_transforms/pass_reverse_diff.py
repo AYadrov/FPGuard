@@ -3,15 +3,6 @@
 import sys
 
 from expression_walker import no_mut_walk
-try:
-    import gelpia_logging as logging
-    import color_printing as color
-except ModuleNotFoundError:
-    sys.path.append("../")
-    import gelpia_logging as logging
-    import color_printing as color
-logger = logging.make_module_logger(color.cyan("function_to_lexed"),
-                                    logging.HIGH)
 
 
 def pass_reverse_diff(exp, inputs):
@@ -226,8 +217,6 @@ def pass_reverse_diff(exp, inputs):
 
 
 def main(argv):
-    logging.set_log_filename(None)
-    logging.set_log_level(logging.HIGH)
     try:
         from pass_utils import get_runmain_input
         from function_to_lexed import function_to_lexed
@@ -238,33 +227,18 @@ def main(argv):
 
         data = get_runmain_input(argv)
 
-        logging.set_log_level(logging.NONE)
         tokens = function_to_lexed(data)
         tree = lexed_to_parsed(tokens)
         exp, inputs = pass_lift_inputs_and_inline_assigns(tree)
         exp = pass_simplify(exp, inputs)
 
-        logging.set_log_level(logging.HIGH)
-        logger("raw: \n{}\n", data)
         d, diff_exp = pass_reverse_diff(exp, inputs)
 
-        logging.set_log_level(logging.NONE)
         diff_exp = pass_simplify(diff_exp, inputs)
-
-        logging.set_log_level(logging.HIGH)
-        logger("inputs:")
-        for name, interval in inputs.items():
-            logger("  {} = {}", name, interval)
-        logger("expression:\n{}\n")
-        logger("diffs:")
-        if d:
-            for name, diff in zip(inputs, diff_exp[1][2][1:]):
-                logger("  d/d{} = {}", name, diff)
 
         return 0
 
     except KeyboardInterrupt:
-        logger(color.green("Goodbye"))
         return 0
 
 

@@ -3,15 +3,6 @@
 import sys
 
 from pass_utils import BINOPS, UNOPS, ATOMS
-try:
-    import gelpia_logging as logging
-    import color_printing as color
-except ModuleNotFoundError:
-    sys.path.append("../")
-    import gelpia_logging as logging
-    import color_printing as color
-logger = logging.make_module_logger(color.cyan("expression_walker"),
-                                    logging.HIGH)
 
 
 def expand_two(work_stack, count, exp):
@@ -42,10 +33,6 @@ def expand_many(work_stack, count, exp):
 
 
 def expand_error(work_stack, count, exp):
-    logger.error("Expand error on expression: {}", exp)
-    logger.error("Stack:")
-    for tup in reversed(work_stack):
-        logger.error("  {}", tup)
     sys.exit(-1)
 
 
@@ -74,10 +61,6 @@ def contract_return(work_stack, count, args):
 
 
 def contract_error(work_stack, count, args):
-    logger.error("Contract error on args: {}", args)
-    logger.error("Stack:")
-    for tup in reversed(work_stack):
-        logger.error("  {}", tup)
     sys.exit(-1)
 
 

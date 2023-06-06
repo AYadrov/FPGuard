@@ -4,15 +4,6 @@ import sys
 
 from expression_walker import walk
 from pass_utils import BINOPS, UNOPS
-try:
-    import gelpia_logging as logging
-    import color_printing as color
-except ModuleNotFoundError:
-    sys.path.append("../")
-    import gelpia_logging as logging
-    import color_printing as color
-logger = logging.make_module_logger(color.cyan("single_assignment"),
-                                    logging.HIGH)
 
 
 def pass_single_assignment(exp, inputs):
@@ -32,7 +23,6 @@ def pass_single_assignment(exp, inputs):
             return exp
         try:
             key = hashed[exp]
-            assert(logger("Eliminated redundant subexpression : {}", exp))
         except KeyError:
             key = "_expr_" + str(len(hashed))
             hashed[exp] = key
@@ -67,8 +57,6 @@ def pass_single_assignment(exp, inputs):
 
 
 def main(argv):
-    logging.set_log_filename(None)
-    logging.set_log_level(logging.HIGH)
     try:
         from pass_utils import get_runmain_input
         from function_to_lexed import function_to_lexed
@@ -80,7 +68,6 @@ def main(argv):
         from pass_lift_consts import pass_lift_consts
 
         data = get_runmain_input(argv)
-        logging.set_log_level(logging.NONE)
 
         tokens = function_to_lexed(data)
         tree = lexed_to_parsed(tokens)
@@ -90,26 +77,11 @@ def main(argv):
         diff_exp = pass_simplify(diff_exp, inputs)
         c, diff_exp, consts = pass_lift_consts(diff_exp, inputs)
 
-        logging.set_log_level(logging.HIGH)
-        logger("raw: \n{}\n", data)
         diff_exp, assigns = pass_single_assignment(diff_exp, inputs)
-
-        logger("inputs:")
-        for name, interval in inputs.items():
-            logger("  {} = {}", name, interval)
-        logger("consts:")
-        for name, val in consts.items():
-            logger("  {} = {}", name, val)
-        logger("assigns:")
-        for name, val in assigns.items():
-            logger("  {} = {}", name, val)
-        logger("expression:")
-        logger("  {}", exp)
 
         return 0
 
     except KeyboardInterrupt:
-        logger(color.green("Goodbye"))
         return 0
 
 

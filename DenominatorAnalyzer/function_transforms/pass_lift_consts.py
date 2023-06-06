@@ -1,18 +1,7 @@
-
-
 import sys
 
 from expression_walker import walk
 from pass_utils import BINOPS, UNOPS
-try:
-    import gelpia_logging as logging
-    import color_printing as color
-except ModuleNotFoundError:
-    sys.path.append("../")
-    import gelpia_logging as logging
-    import color_printing as color
-logger = logging.make_module_logger(color.cyan("lift_consts"),
-                                    logging.HIGH)
 
 
 def pass_lift_consts(exp, inputs):
@@ -32,7 +21,6 @@ def pass_lift_consts(exp, inputs):
 
         try:
             key = hashed[exp]
-            assert(logger("Found use of existing const {}", key))
 
         except KeyError:
             key = "$_const_{}".format(len(hashed))
@@ -40,7 +28,6 @@ def pass_lift_consts(exp, inputs):
             hashed[exp] = key
             assert(key not in consts)
             consts[key] = exp
-            assert(logger("Lifting const {} as {}", exp, key))
 
         return ('Const', key)
 
@@ -171,8 +158,6 @@ def pass_lift_consts(exp, inputs):
 
 
 def main(argv):
-    logging.set_log_filename(None)
-    logging.set_log_level(logging.HIGH)
     try:
         from function_to_lexed import function_to_lexed
         from lexed_to_parsed import lexed_to_parsed
@@ -184,7 +169,6 @@ def main(argv):
 
         data = get_runmain_input(argv)
 
-        logging.set_log_level(logging.NONE)
         tokens = function_to_lexed(data)
         tree = lexed_to_parsed(tokens)
         exp, inputs = lift_inputs_and_inline_assigns(tree)
@@ -192,24 +176,11 @@ def main(argv):
         d, diff_exp = reverse_diff(exp, inputs)
         diff_exp = simplify(diff_exp, inputs)
 
-        logging.set_log_level(logging.HIGH)
-        logger("raw: \n{}\n", data)
         const, exp, consts = pass_lift_consts(diff_exp, inputs)
-
-        logger("inputs:")
-        for name, interval in inputs.items():
-            logger("  {} = {}", name, interval)
-        logger("consts:")
-        for name, val in consts.items():
-            logger("  {} = {}", name, val)
-        logger("expression:")
-        logger("  {}", exp)
-        logger("is_const: {}", const)
 
         return 0
 
     except KeyboardInterrupt:
-        logger(color.green("Goodbye"))
         return 0
 
 
