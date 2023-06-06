@@ -640,7 +640,7 @@ class AnalyzeNode_Cond(object):
 
     def simplify_with_abstraction(self, sel_candidate_list, argList, MaxDepth, bound_min, bound_max):
         Globals.condExprBank.clear()
-        obj = AnalyzeNode_Cond(sel_candidate_list, self.argList, MaxDepth, paving=Globals.argList.realpaver)
+        obj = AnalyzeNode_Cond(sel_candidate_list, self.argList, MaxDepth, paving=False)
         results = obj.start(bound_min=bound_min, bound_max=bound_max)
 
         # print("Ever came here3?")

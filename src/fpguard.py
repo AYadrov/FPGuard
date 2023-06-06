@@ -46,7 +46,6 @@ def parseArguments():
 	parser.add_argument('--sound', help='Turn on analysis for higher order errors', default=False, action='store_true')
 	parser.add_argument('--compress', help='Perform signature matching to reduce optimizer calls using hashing and md5 signature', default=False, action='store_true')
 	parser.add_argument('--force', help='Sideline additional tricks used for non-linear examples. Use this option for linear examples', default=False, action='store_true')
-	parser.add_argument('--realpaver', help='Enable realpaver guided subdivision inside FPGuard', default=False, action='store_true')
 	parser.add_argument('--enable-constr', help='Enable solving constrained optimization queries', default=False, action='store_true')
 	parser.add_argument('--stat-err-enable', help='Enable statistical error sampling', default=False, action='store_true')
 	parser.add_argument('--stat-err-fraction', help='Fractional bound for using statistical error. Default is 0.5',\
@@ -119,7 +118,7 @@ def simplify_with_abstraction(sel_candidate_list, argList, maxdepth, final=False
 
 	Globals.condExprBank.clear()
 
-	obj = AnalyzeNode_Cond(sel_candidate_list, argList, maxdepth, paving=argList.realpaver)
+	obj = AnalyzeNode_Cond(sel_candidate_list, argList, maxdepth, paving=False)
 	results = obj.start()
 
 	if "flag" in results.keys():
@@ -198,9 +197,6 @@ if __name__ == "__main__":
 	##-------- Check if realpaver is available -----------------
 	Globals.ROOT_DIR = os.getenv("SAT_ROOT")
 	assert ( os.path.isdir(Globals.ROOT_DIR) )
-	if argList.realpaver:
-		Globals.LIBFILE = Globals.ROOT_DIR+"/RL1/build/"+"libsatrp.so"
-		assert ( os.path.isfile(Globals.LIBFILE) )
 
 	#--------- Lexing and Parsing ------------------------------
 	start_parse_time = time.time()
