@@ -12,7 +12,7 @@ import ops_def as ops
 
 sys.path.append(os.path.join(os.environ['SAT_ROOT'], "DenominatorAnalyzer"))
 sys.path.append(os.path.join(os.path.join(os.environ['SAT_ROOT'], "DenominatorAnalyzer"), "function_transforms"))
-from DenominatorAnalyzer.analyzer import analyze_symbolic_expression
+from analyzer import analyze_symbolic_expression
 
 PASSED = "PASSED"
 

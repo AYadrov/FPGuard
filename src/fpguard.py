@@ -5,10 +5,8 @@ import time
 import argparse
 import symengine as seng
 
-import Globals
-from gtokens import *
 from lexer import Slex
-from src.parser import Sparser
+from parser import Sparser
 
 from collections import defaultdict
 

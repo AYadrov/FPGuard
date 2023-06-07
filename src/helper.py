@@ -1,12 +1,10 @@
-
-import Globals
 import math
-import sympy as sym
-import symengine as seng
 from collections import defaultdict
 from SymbolTable import *
 
 from gtokens import *
+
+from functools import reduce
 
 import ops_def as ops
 

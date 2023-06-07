@@ -1,10 +1,5 @@
 
 import Globals
-import sympy 
-import symengine as seng
-
-from PredicatedSymbol import Sym, SymTup, SymConcat
-from functools import reduce
 
 
 class SymbolTable(object):

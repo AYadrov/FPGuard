@@ -14,6 +14,9 @@ import helper
 import Globals
 import time
 
+import symengine as seng
+
+
 import copy
 from sympy.plotting.intervalmath import interval
 
