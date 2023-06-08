@@ -1,0 +1,14 @@
+INPUTS {
+	var_1 fl64 : (-1.0, 1.0);
+	var_2 fl64 : (-1.0, 1.0);
+	var_3 fl64 : (-1.0, 1.0);
+	var_4 fl64 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_2; 
+}
+EXPRS {
+	comp_1 rnd64 = (var_1 + sin((var_2 - 1.3517e6)));
+	tmp_7002 rnd64 = -1.4043e305;
+	comp_2 rnd64 = comp_1 + tmp_7002 + sqrt(var_3 / (1.0e-15 + (var_4 + sqrt(1.0621e-21))));
+}

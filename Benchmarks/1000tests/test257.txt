@@ -1,0 +1,9 @@
+INPUTS {
+	var_1 fl64 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	comp_1 rnd64 = (-1.1451e-318) + var_1;
+}

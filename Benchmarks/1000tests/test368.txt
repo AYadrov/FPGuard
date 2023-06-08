@@ -1,0 +1,8 @@
+INPUTS {
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	comp_1 rnd32 = (0.0 + (0.0 + (-1.1361e-10)));
+}

@@ -1,0 +1,16 @@
+INPUTS {
+	var_1 fl32 : (-1.0, 1.0);
+	var_2 fl32 : (-1.0, 1.0);
+	var_3 fl32 : (-1.0, 1.0);
+	var_4 fl32 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	tmp_11118 rnd32 = -1.6112e-37;
+	tmp_11119 rnd32 = (var_1 * var_2);
+	tmp_11120 rnd32 = -1.2105e-37;
+	tmp_11121 rnd32 = var_3 * var_4;
+	comp_1 rnd32 = tmp_11121 + tmp_11120 * tmp_11119 + tmp_11118 - (0.0 - 1.9131e-41);
+}

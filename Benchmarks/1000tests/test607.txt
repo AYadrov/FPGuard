@@ -1,0 +1,9 @@
+INPUTS {
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	tmp_7830 rnd32 = 0.0 - (-1.7842e-21) + 1.8362e34 + (-1.7884e34) - (0.0 + 0.0);
+	comp_1 rnd32 = tmp_7830 + sqrt(0.0);
+}

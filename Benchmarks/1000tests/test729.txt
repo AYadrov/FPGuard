@@ -1,0 +1,8 @@
+INPUTS {
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	comp_1 rnd64 = ((-1.1147e-290) + 1.4987e-247);
+}

@@ -1,0 +1,8 @@
+INPUTS {
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	comp_1 rnd32 = sin(1.6226e-44);
+}

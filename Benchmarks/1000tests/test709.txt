@@ -1,0 +1,10 @@
+INPUTS {
+	var_1 fl32 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_2; 
+}
+EXPRS {
+	comp_1 rnd32 = ((-1.7748e-36) - (-1.0238e-36));
+	comp_2 rnd32 = comp_1 - ((-1.5557e36) - (-1.1483e-29) - var_1);
+}

@@ -1,0 +1,12 @@
+INPUTS {
+	var_1 fl64 : (-1.0, 1.0);
+	var_2 fl64 : (-1.0, 1.0);
+	var_3 fl64 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	tmp_7993 rnd64 = -1.3506e-306;
+	comp_1 rnd64 = tmp_7993 * var_1 - (1.9471e-307 * var_2 + var_3);
+}

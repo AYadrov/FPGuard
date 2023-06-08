@@ -1,0 +1,25 @@
+INPUTS {
+	var_1 fl32 : (-1.0, 1.0);
+	var_2 fl32 : (-1.0, 1.0);
+	var_3 fl32 : (-1.0, 1.0);
+	var_4 fl32 : (-1.0, 1.0);
+	var_5 fl32 : (-1.0, 1.0);
+	var_6 fl32 : (-1.0, 1.0);
+	var_7 fl32 : (-1.0, 1.0);
+	var_8 fl32 : (-1.0, 1.0);
+	var_9 fl32 : (-1.0, 1.0);
+	var_10 fl32 : (-1.0, 1.0);
+	var_11 fl32 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_4; 
+}
+EXPRS {
+	comp_1 rnd32 = var_1 - 1.4045e36 * sin(1.5508e2);
+	comp_2 rnd32 = comp_1 + var_2 + var_3;
+	comp_3 rnd32 = comp_2 + (1.4788e-41 - (var_4 / (1.0e-15 + (1.5470e-36 + (-1.6188e35)))));
+	tmp_1528 rnd32 = 0.0;
+	tmp_1529 rnd32 = var_5 / (1.0e-15 + var_6);
+	tmp_1530 rnd32 = 1.7055e35;
+	comp_4 rnd32 = comp_3 + tmp_1530 * tmp_1529 - tmp_1528 * (-1.9933e-42) + (var_7 + (var_8 + var_9 + (var_10 - var_11)));
+}

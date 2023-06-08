@@ -1,0 +1,15 @@
+INPUTS {
+	var_1 fl32 : (-1.0, 1.0);
+	var_2 fl32 : (-1.0, 1.0);
+	var_3 fl32 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_3; 
+}
+EXPRS {
+	tmp_2860 rnd32 = (-1.8187e36) * var_1;
+	comp_1 rnd32 = tmp_2860 + (var_2 * 0.0);
+	tmp_2861 rnd32 = -1.5351e24;
+	comp_2 rnd32 = comp_1 - tmp_2861 - var_3 - (-1.4728e36);
+	comp_3 rnd32 = comp_2 * tan(1.6181e-44);
+}

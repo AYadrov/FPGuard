@@ -1,0 +1,10 @@
+INPUTS {
+	var_1 fl64 : (-1.0, 1.0);
+	var_2 fl64 : (-1.0, 1.0);
+}
+OUTPUTS {
+	comp_1; 
+}
+EXPRS {
+	comp_1 rnd64 = sin(var_1 + var_2);
+}
