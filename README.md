@@ -81,19 +81,23 @@ LEVEL_TOP: Domain check found these constraints to avoid infinity:
 	 ((k1 - (0.0) + 0.001 <= 0)||(-1.0 * (k1 - (0.0)) + 0.001 <= 0));
 ```
 ### Example 3
-Example for launching FPGuard for smartRoot benchmark with domain checks:
+Example for launching FPGuard for one test from 1000 stress-tests with domain checks:
 ```sh
-python3 fpguard.py --std --domain-checks --enable-constr --file /home/FPGuard/Benchmarks/smartRoot/SAT/smartRoot.txt
+python3 fpguard.py --std --domain-checks --enable-constr --file /home/FPGuard/Benchmarks/100tests/test5.txt
 ```
 Output:
 ```
-LEVEL_TOP: Optimizer cells : 14
-LEVEL_TOP: Parsing time : 0.007081031799316406
-LEVEL_TOP: Analysis time : 2.4871573448181152
-LEVEL_TOP: Full_time : 2.495924234390259
-LEVEL_TOP: ABSOLUTE_ERROR : 4.544503734227323e-16
+LEVEL_TOP: Optimizer cells : 91814
+LEVEL_TOP: Parsing time : 0.001889944076538086
+LEVEL_TOP: Analysis time : 71.24317216873169
+LEVEL_TOP: Full_time : 71.24700140953064
+LEVEL_TOP: ABSOLUTE_ERROR : 13985600787247.42
 LEVEL_TOP: Domain check found these constraints to avoid infinity:
-	 ((c - (1.02083333333333) + 0.1 <= 0)||(-1.0 * (c - (1.02083333333333)) + 0.1 <= 0));
+	 ((var_9 - (5.98121897242658e-72*(-1.0e+35*var_7 - 1.0e+20)/var_8) + 0.1 <= 0)||(-1.0 * (var_9 - (5.98121897242658e-72*(-1.0e+35*var_7 - 1.0e+20)/var_8)) + 0.1 <= 0));
+	 ((var_8 - (1.41494985606667e-73*(-4.22715967409148e+36*var_7 - 4.22715967409148e+21)/var_9) + 0.1 <= 0)||(-1.0 * (var_8 - (1.41494985606667e-73*(-4.22715967409148e+36*var_7 - 4.22715967409148e+21)/var_9)) + 0.1 <= 0));
+	 ((var_9 - (1.41494985606667e-73*(-4.22715967409148e+36*var_7 - 4.22715967409148e+21)/var_8) + 0.1 <= 0)||(-1.0 * (var_9 - (1.41494985606667e-73*(-4.22715967409148e+36*var_7 - 4.22715967409148e+21)/var_8)) + 0.1 <= 0));
+	 ((var_8 - (5.98121897242658e-72*(-1.0e+35*var_7 - 1.0e+20)/var_9) + 0.1 <= 0)||(-1.0 * (var_8 - (5.98121897242658e-72*(-1.0e+35*var_7 - 1.0e+20)/var_9)) + 0.1 <= 0));
+	 ((var_7 - (-1.6719e+36*var_8*var_9 - 1.0e-15) + 0.1 <= 0)||(-1.0 * (var_7 - (-1.6719e+36*var_8*var_9 - 1.0e-15)) + 0.1 <= 0));
 ```
 
 ## References
