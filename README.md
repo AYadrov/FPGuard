@@ -14,7 +14,7 @@ graph. Afterwards, it obtains error expressions and checks for a possible domain
 
 ### Docker
 
-Here is a simple example how to launch docker container with FPGuard.
+Here is a simple example how to launch a docker container with FPGuard.
 
 1) Download Dockerfile and open terminal where Dockerfile is stored
 1) `sudo docker build -t fpguard_image .`
@@ -36,7 +36,7 @@ FPGuard requires the following dependencies to be installed:
 		* [sympy](https://www.sympy.org/en/index.html) > 1.4
 		* [bigfloat](https://pypi.org/project/bigfloat) > 0.4.0
 
-In addition, FPGuard requires `IbexOpt` to be installed. Please, follow the instruction that can be found in [ibex-lib repository](https://github.com/ibex-team/ibex-lib).
+In addition, FPGuard requires `IbexOpt` to be installed. Please, follow the instructions that can be found in [ibex-lib repository](https://github.com/ibex-team/ibex-lib).
 
 Before launching, make sure that you added environmental variable `SAT_ROOT=[...]/FPGuard`.
 
