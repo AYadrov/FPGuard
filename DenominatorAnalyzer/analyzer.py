@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from sympy import symbols, solve
+from sympy import symbols, solve, simplify
 import os
 
 from function_transforms.process_function_ import process_function_
@@ -78,6 +78,8 @@ def solver(constraints, arguments, exp, eps):
     except TypeError:
         args = [args]
     eq = exp.strDenominator()
+
+    eq = str(simplify(eq))
     # constraint = f"(<<{eq} - {eps} >= 1e-300>>|<<{eq} + {eps} <= 1e-300>>)"
     # # constraint = f"min(-({eq}) + {eps}, {eq} + {eps}) <= 1e-323"
     # constraints.add(constraint)

@@ -26,7 +26,7 @@ enable_constr = False
 
 ## Global flag to check domain to avoid infinity errors
 domain_checks = False
-domain_eps = 0.001
+domain_eps = 0.1
 
 ## epsilon symbolic variable 
 deps = seng.var('eps')

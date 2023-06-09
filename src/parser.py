@@ -7,6 +7,7 @@ from collections import deque
 from SymbolTable import *
 
 import copy
+import sympy
 import sys
 import helper
 
