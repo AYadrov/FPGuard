@@ -83,7 +83,7 @@ LEVEL_TOP: Domain check found these constraints to avoid infinity:
 ### Example 3
 Example for launching FPGuard for one test from 1000 stress-tests with domain checks:
 ```sh
-python3 fpguard.py --std --domain-checks --enable-constr --file /home/FPGuard/Benchmarks/100tests/test5.txt
+python3 fpguard.py --std --domain-checks --enable-constr --file /home/FPGuard/Benchmarks/1000tests/test5.txt
 ```
 Output:
 ```
