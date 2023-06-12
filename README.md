@@ -27,7 +27,7 @@ FPGuard requires the following dependencies to be installed:
 
 * Requirements:
 	* python > 3.6
-	* libmpfr package
+	* libmpfr-dev package
 	* python packages using pip3
 		* [sly](https://github.com/dabeaz/sly) > 0.3
 		* [pyinterval](https://pypi.org/project/pyinterval/) >= 1.2.0
@@ -42,7 +42,7 @@ Before launching, make sure that you added environmental variable `SAT_ROOT=[...
 
 ## Usage
 
-FPGuard is a python based framework. The main function is available is `src/fpguard.py` The `--help` command clarifies all the supporting arguments.
+FPGuard is a python based framework. The main function is in `src/fpguard.py` The `--help` command clarifies all the supporting arguments.
 
 ### Example 1
 
