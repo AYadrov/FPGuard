@@ -4,7 +4,6 @@ import symengine as seng
 
 from collections import OrderedDict, defaultdict
 
-## Tracks the total number of SMT calls made
 solver_calls = 0
 
 ## Place holder for the parsed argument list to be made available 
@@ -15,7 +14,7 @@ argList = []
 ROOT_DIR = ""
 
 ## path of realpaver Library file 
-LIBFILE = ''
+# LIBFILE = ''
 abs_error=0
 
 ## Global Flag, disable when expand seems to misbehave
@@ -27,6 +26,11 @@ enable_constr = False
 ## Global flag to check domain to avoid infinity errors
 domain_checks = False
 domain_eps = 0.1
+
+# Absolute precision affects the speed of optimization. For some cases it is unnecessary.
+# Originally is equal to 1e-7
+abs_precision_ibex = 1e-1000
+
 
 ## epsilon symbolic variable 
 deps = seng.var('eps')

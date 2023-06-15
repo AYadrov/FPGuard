@@ -1,0 +1,10 @@
+INPUTS {
+	x fl64 : (1e-200, 2e-200)	;
+}
+
+OUTPUTS {
+	r ;
+}
+EXPRS {
+    r rnd64 = sqrt(3 * x);
+}

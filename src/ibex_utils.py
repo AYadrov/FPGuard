@@ -57,6 +57,10 @@ class IbexOutputParser(Lexer):
     def TIMEOUT_REACHED(self, t):
         return t
 
+    @_(r'\x1b\[31m unreached precision\n\x1b\[0m\n')
+    def UNREACHED_PRECISION(self, t):
+        return t
+
     @_(r'relative precision on f\*\:\t*[+-]?(([0-9]*[.])?[0-9]+(e[-+]?[0-9]*)?|nan|inf)')
     def RELATIVE_PRECISION(self, t):
         rel_prec = list(re.findall(r'[-+]?(?:\d*\.*\d+|inf|nan)(?:[eE][-+]\d+)?', t.value))
@@ -132,8 +136,8 @@ class IbexOutputParser(Lexer):
     def ENDING(self, t):
         pass
 
-    # def error(self, t):
-    #     print('Line %d: Bad character %r' % (self.lineno, t.value[0:]))
+    def error(self, t):
+        print('Line %d: Bad character %r' % (self.lineno, t.value[0:]))
 
 
 def simplify_res(res):
@@ -265,8 +269,6 @@ def ibex_preprocess_inputs(cond_expr, externConstraints):
             constraints[i][0] = re.sub(r'inf', "1.79769313486e+308", constraints[i][0])
             constraints[i][0] += ";\n"
 
-            # Ibex bug, if constraint is like "x >= 0", Ibex gives the result out of bound
-            # constraints[i][0] = re.sub(r'([^.\da-zA-Z_])(0(\.0)?)([^.\da-zA-Z_])',  r'\1 1e-323 \4', constraints[i][0])
             # constraints[i][0] = re.sub(r'\*I', "*0.0", constraints[i][0])
     elif constraints is None:
         constraints = None
@@ -288,7 +290,6 @@ def ibex_preprocess_inputs(cond_expr, externConstraints):
         constraints = re.sub(r'inf.0', "inf", constraints)
         constraints = re.sub(r'inf', "1.79769313486e+308", constraints)  # Ibex doesn't know what inf is. 1.79769313486e+308 is a max number in Ibex
 
-        # constraints = re.sub(r'([^.\da-zA-Z_])(0(\.0)?)([^.\da-zA-Z_])', r'\1 1e-323 \4', constraints)
         # constraints = re.sub(r'\*I', "*0.0", constraints)
         if constraints == "":
             constraints = None
@@ -352,8 +353,9 @@ def ibex_find_min(ibex_file):
         fp.write(ibex_file)
         fp.close()
         # print(ibex_file)
+        # Use unreachable precision on purpose to get the most accurate results
         output = subprocess.run(
-            f"ibexopt ibex_input.bch --simpl 2 -t{Globals.IBEX_TIMEOUT}",
+            f"ibexopt ibex_input.bch --simpl 2 -t{Globals.IBEX_TIMEOUT} --abs-eps-f={Globals.abs_precision_ibex}",
             shell=True, capture_output=True, text=True)
         # print(output.stdout)
         bound, points, cpu_time, number_of_cells = ibex_parser(output.stdout)
