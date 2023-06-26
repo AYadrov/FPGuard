@@ -454,8 +454,7 @@ def writeToFile(results, fout, argList):
 			for d in Globals.domainConds:
 				dumpStr += "\t" + d.replace(">>|<<", ")||(").replace("<<", "(").replace(">>", ")") + ";\n"
 		dumpStr += "//-------------------------------------\n"
-		# out = "ABSOLUTE_ERROR = "+str(abserror)
-		Globals.abs_error = abserror
+		print(dumpStr)
 
 	fout.write(dumpStr+"\n")
 	# if stdflag:

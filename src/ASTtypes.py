@@ -464,9 +464,10 @@ class TransOp(AST):
 		repr_str : str
 			String representation of the class.
 		"""
-		repr_str = 'TransOp{' + '\n\ttoken:' + repr(self.token) + "\n" + super().__repr__() \
-				   + '\n\tchildren:' + repr(self.children[0].token.value) \
-				   + '\n}\n'
+		# repr_str = 'TransOp{' + '\n\ttoken:' + repr(self.token) + "\n" + super().__repr__() \
+		# 		   + '\n\tchildren:' + repr(self.children[0].token.value) \
+		# 		   + '\n}\n'
+		repr_str = str(self.token.value) + repr(self.children)
 		return repr_str
 
 	@staticmethod
@@ -554,10 +555,11 @@ class BinOp(AST):
 		repr_str : str
 			String representation of the class.
 		"""
-		repr_str = 'BinOp{' + '\n\ttoken:' + repr(self.token) + "\n" + super().__repr__() \
-				   + '\n\tleft child:' + repr(self.children[0].token.value) \
-				   + '\n\tright child:' + repr(self.children[1].token.value) \
-				   + '\n}\n'
+		# repr_str = 'BinOp{' + '\n\ttoken:' + repr(self.token) + "\n" + super().__repr__() \
+		# 		   + '\n\tleft child:' + repr(self.children[0].token.value) \
+		# 		   + '\n\tright child:' + repr(self.children[1].token.value) \
+		# 		   + '\n}\n'
+		repr_str = repr(self.children[0].token.value) + str(self.token.value) + repr(self.children[1].token.value)
 		return repr_str
 
 	def debug_print(self):
