@@ -248,10 +248,14 @@ class AnalyzeNode_Cond(object):
 
     def propagate_symbolic(self, node):
         for outVar in self.bwdDeriv[node].keys():
+
+            print(self.bwdDeriv[node][outVar], node.get_noise(node), node.get_rounding())
             expr_solve = self.condmerge( \
                 ((self.bwdDeriv[node][outVar]) * \
                  (node.get_noise(node)) * node.get_rounding()) \
                 ).__abs__()
+            print(expr_solve)
+            print('---')
             acc = self.Accumulator.get(outVar, SymTup((Sym(0.0, Globals.__T__),)))
             if (len(acc) > 10):
                 acc = self.merge_discontinuities(self.condmerge(acc), 1000)
@@ -274,6 +278,8 @@ class AnalyzeNode_Cond(object):
                 Globals.InstabID[node] = instability_error
             # print("Local instability errors:", instability_error)
             val = acc.__concat__(expr_solve, trim=True)
+
+
 
             self.Accumulator[outVar] = val
 

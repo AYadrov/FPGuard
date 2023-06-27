@@ -370,6 +370,7 @@ def ibex_find_min(ibex_file):
 
 def invoke_ibex(symExpr, cond_expr, externConstraints, inputStr):
 
+    print(symExpr)
     str_expr = re.sub(r'\*\*', "^", str(symExpr))
     str_expr = re.sub(r'Abs', "abs", str_expr)
     str_expr = re.sub(r're\b', "", str_expr)

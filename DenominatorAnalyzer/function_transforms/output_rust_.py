@@ -26,13 +26,13 @@ def interval2list(intvl):
     return intvl
 
 
-def const_reformat(const):
+def const_reformat(const, precision=64):
     const = const.replace('[', '').replace(']', '').replace('(', '').replace(')', '')
-    const = bf.BigFloat(eval(const), context=bf.precision(64))
+    const = bf.BigFloat(eval(const), context=bf.precision(precision))
     return const
 
 
-def value_to_ASTtype(value, name, Variables, Consts, Expressions):
+def value_to_ASTtype(value, name, Variables, Consts, Expressions, precision=64):
     expr = ast.Expr(name, operation=None, left_child=None, right_child=None)
 
     for val in value:
@@ -62,12 +62,12 @@ def value_to_ASTtype(value, name, Variables, Consts, Expressions):
             if expr.right_child is None:
                 new_const_name = "$_const_" + str(len(Consts))
                 Consts[new_const_name] = \
-                    ast.Const(name=new_const_name, value=bf.BigFloat(val, context=bf.precision(64)))
+                    ast.Const(name=new_const_name, value=bf.BigFloat(val, context=bf.precision(precision)))
                 expr.right_child = Consts[new_const_name]
     return expr
 
 
-def output_rust_(exp, inputs, consts, assigns):
+def output_rust_(exp, inputs, consts, assigns, precision=64):
     Variables = OrderedDict()
     for name, input in inputs.items():
         interval = interval2list(output_flatten(("Return", input)))
@@ -75,7 +75,7 @@ def output_rust_(exp, inputs, consts, assigns):
 
     Consts = OrderedDict()
     for name, const in consts.items():
-        value = const_reformat(output_flatten(("Return", const)))
+        value = const_reformat(output_flatten(("Return", const)), precision=precision)
         Consts[name] = ast.Const(name=name, value=value)
 
     seen_assigns = set()
