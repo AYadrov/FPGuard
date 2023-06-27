@@ -9,7 +9,15 @@ from rival import *
 
 if __name__ == '__main__':
     expr = "x = [-1, 1];sqrt(x+1) + sqrt(x)"
-    Expressions, Variables, Consts, DivExpressions = process_function_(expr, precision=113)
+    Expressions, Variables, Consts, DivExpressions = process_function_(expr, precision=1000)
     for exp in Expressions:
         if Expressions[exp].root:
-            print(Expressions[exp].evaluate())
+            print("Precision allocation for: " + str(Expressions[exp]))
+            p = 1
+            for p in range(1, 113):
+                higher_precision = Expressions[exp].evaluate(precision=1000)
+                lower_precision = Expressions[exp].evaluate(precision=p)
+                if ival_cmp(higher_precision, lower_precision, precision=53):
+                    print(f"Results will be similar between 1000 precision and {p} precision under 53 bits precision comparison")
+                    break
+                p+=1

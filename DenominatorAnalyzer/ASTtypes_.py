@@ -48,7 +48,10 @@ class Var:
         return type(self)(self.name, self.range)
 
     def evaluate(self, precision=113):
-        return ival(bf.Bigfloat(self.range[0], precision), bf.Bigfloat(self.range[1], precision), False, False)
+        return ival(bf.BigFloat(self.range[0], context=bf.precision(precision)),
+                    bf.BigFloat(self.range[1], context=bf.precision(precision)),
+                    False,
+                    False)
 
     def getArgs(self):
         return [self.name]
@@ -72,10 +75,12 @@ class Expr:
         if self.operation is None:
             return self.left_child.evaluate(precision=precision)
         elif self.right_child is None:
-            return OP_TO_RIVAL[self.operation](self.left_child.evaluate(precision=precision))
+            return OP_TO_RIVAL[self.operation](self.left_child.evaluate(precision=precision),
+                                               precision=precision)
         else:
             return OP_TO_RIVAL[self.operation](self.left_child.evaluate(precision=precision),
-                                               self.right_child.evaluate(precision=precision))
+                                               self.right_child.evaluate(precision=precision),
+                                               precision=precision)
 
     def getArgs(self):
         return list(np.unique(np.array(self.search_for_args())))
@@ -128,7 +133,10 @@ class Const:
         if bf.is_inf(self.value):
             return ival(float('inf'), float('inf'), True, True)
         else:
-            return ival(bf.Bigfloat(self.value, precision), bf.Bigfloat(self.value, precision), False, False)
+            return ival(bf.BigFloat(self.value, context=bf.precision(precision)),
+                        bf.BigFloat(self.value, context=bf.precision(precision)),
+                        False,
+                        False)
 
     def getArgs(self):
         return None
@@ -137,4 +145,4 @@ class Const:
         return None
 
     def __str__(self):
-        return str(self.value)
+        return str(bf.BigFloat(self.value, context=bf.precision(24)))

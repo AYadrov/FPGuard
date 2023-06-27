@@ -442,13 +442,13 @@ def ival_cmp(x: ival,
              precision=53) -> bool:
 
     with bf.precision(precision):
-        x.lo = bf.BigFloat(x.lo)
-        x.hi = bf.BigFloat(x.hi)
+        x_lo = bf.BigFloat(x.lo)
+        x_hi = bf.BigFloat(x.hi)
 
-        y.lo = bf.BigFloat(y.lo)
-        y.hi = bf.BigFloat(y.hi)
+        y_lo = bf.BigFloat(y.lo)
+        y_hi = bf.BigFloat(y.hi)
 
-        return bigfloat.cmp(y.lo, x.lo) == 0 and bigfloat.cmp(y.hi, x.hi) == 0
+        return bigfloat.cmp(y_lo, x_lo) == 0 and bigfloat.cmp(y_hi, x_hi) == 0
 
 
 if __name__ == "__main__":
