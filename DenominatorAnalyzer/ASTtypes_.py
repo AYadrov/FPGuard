@@ -47,8 +47,8 @@ class Var:
     def __copy__(self):
         return type(self)(self.name, self.range)
 
-    def evaluate(self):
-        return ival(self.range[0], self.range[1], False, False)
+    def evaluate(self, precision=113):
+        return ival(bf.Bigfloat(self.range[0], precision), bf.Bigfloat(self.range[1], precision), False, False)
 
     def getArgs(self):
         return [self.name]
@@ -68,13 +68,14 @@ class Expr:
         self.right_child = right_child
         self.root = False
 
-    def evaluate(self):
+    def evaluate(self, precision=113):
         if self.operation is None:
-            return self.left_child.evaluate()
+            return self.left_child.evaluate(precision=precision)
         elif self.right_child is None:
-            return OP_TO_RIVAL[self.operation](self.left_child.evaluate())
+            return OP_TO_RIVAL[self.operation](self.left_child.evaluate(precision=precision))
         else:
-            return OP_TO_RIVAL[self.operation](self.left_child.evaluate(), self.right_child.evaluate())
+            return OP_TO_RIVAL[self.operation](self.left_child.evaluate(precision=precision),
+                                               self.right_child.evaluate(precision=precision))
 
     def getArgs(self):
         return list(np.unique(np.array(self.search_for_args())))
@@ -123,11 +124,11 @@ class Const:
         self.name = name
         self.value = value
 
-    def evaluate(self):
+    def evaluate(self, precision=113):
         if bf.is_inf(self.value):
             return ival(float('inf'), float('inf'), True, True)
         else:
-            return ival(self.value, self.value, False, False)
+            return ival(bf.Bigfloat(self.value, precision), bf.Bigfloat(self.value, precision), False, False)
 
     def getArgs(self):
         return None
