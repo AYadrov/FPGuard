@@ -250,8 +250,9 @@ if __name__ == "__main__":
         dumpStr += "LEVEL_TOP: ABSOLUTE_ERROR : {abserror}\n".format(abserror=str(abserror))
         if Globals.domain_checks:
             dumpStr += "LEVEL_TOP: Domain check found these constraints to avoid infinity:\n"
+            t = Globals.domainConds
             for d in Globals.domainConds:
-                dumpStr += "\t", d.replace(">>|<<", ")||(").replace("<<", "(").replace(">>", ")") + ";\n"
+                dumpStr += "\t" + d.replace(">>|<<", ")||(").replace("<<", "(").replace(">>", ")") + ";\n"
 
         print(dumpStr)
         fout.write(dumpStr + "\n")
