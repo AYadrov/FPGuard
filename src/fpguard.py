@@ -251,7 +251,7 @@ if __name__ == "__main__":
         if Globals.domain_checks:
             dumpStr += "LEVEL_TOP: Domain check found these constraints to avoid infinity:\n"
             for d in Globals.domainConds:
-                dumpStr += "\t", d.replace(">>|<<", ")||(").replace("<<", "(").replace(">>", ")") + ";\n"
+                dumpStr += "\t" + d.replace(">>|<<", ")||(").replace("<<", "(").replace(">>", ")") + ";\n"
 
         print(dumpStr)
         fout.write(dumpStr + "\n")

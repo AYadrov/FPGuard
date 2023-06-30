@@ -34,7 +34,6 @@ def const_reformat(const, precision=64):
 
 def value_to_ASTtype(value, name, Variables, Consts, Expressions, precision=64):
     expr = ast.Expr(name, operation=None, left_child=None, right_child=None)
-
     for val in value:
         if val in ast.OP_TO_RIVAL:
             expr.operation = val
@@ -133,11 +132,17 @@ def output_rust_(exp, inputs, consts, assigns, precision=64):
     def _binop(work_stack, count, args):
         assert(args[0] in BINOPS or args[0] == "powi")
         assert(len(args) == 3)
-        op = args[0]
-        first = args[1]
-        secon = args[2]
-        ret = [op, "("] + first + [", "] + secon + [")"]
-        work_stack.append((True, count, ret))
+        if args[0] == 'powi':
+            base = args[1]
+            expo = args[2]
+            ret = ["pow("] + base + [", ", expo[0], ")"]
+            work_stack.append((True, count, ret))
+        else:
+            op = args[0]
+            first = args[1]
+            secon = args[2]
+            ret = [op, "("] + first + [", "] + secon + [")"]
+            work_stack.append((True, count, ret))
 
     def _pow(work_stack, count, args):
         assert(args[0] == "pow")

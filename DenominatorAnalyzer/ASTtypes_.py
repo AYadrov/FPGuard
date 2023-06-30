@@ -115,7 +115,8 @@ class Expr:
             else:
                 return str(self.operation + "(" + self.left_child.__str__() + ")")
         else:
-            return str("(" + self.left_child.__str__() + ")" + OP_TO_STR[self.operation] + "(" + self.right_child.__str__() + ")")
+            s = str("(" + self.left_child.__str__() + ")" + OP_TO_STR[self.operation] + "(" + self.right_child.__str__() + ")")
+            return s
 
     def strDenominator(self):
         if self.operation == "/":
@@ -145,4 +146,4 @@ class Const:
         return None
 
     def __str__(self):
-        return str(bf.BigFloat(self.value, context=bf.precision(24)))
+        return str(bf.BigFloat(self.value, context=bf.precision(53)))
