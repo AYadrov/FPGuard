@@ -249,13 +249,13 @@ class AnalyzeNode_Cond(object):
     def propagate_symbolic(self, node):
         for outVar in self.bwdDeriv[node].keys():
 
-            print(self.bwdDeriv[node][outVar], node.get_noise(node), node.get_rounding())
+            # print(self.bwdDeriv[node][outVar], node.get_noise(node), node.get_rounding())
             expr_solve = self.condmerge( \
                 ((self.bwdDeriv[node][outVar]) * \
                  (node.get_noise(node)) * node.get_rounding()) \
                 ).__abs__()
-            print(expr_solve)
-            print('---')
+            # print(expr_solve)
+            # print('---')
             acc = self.Accumulator.get(outVar, SymTup((Sym(0.0, Globals.__T__),)))
             if (len(acc) > 10):
                 acc = self.merge_discontinuities(self.condmerge(acc), 1000)

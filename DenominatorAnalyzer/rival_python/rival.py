@@ -440,7 +440,12 @@ def ival_sqrt(x, precision=113):
 def ival_cmp(x: ival,
              y: ival,
              precision=53) -> bool:
-
+    """
+    :param x:
+    :param y:
+    :param precision:
+    :return:
+    """
     with bf.precision(precision):
         x_lo = bf.BigFloat(x.lo)
         x_hi = bf.BigFloat(x.hi)
