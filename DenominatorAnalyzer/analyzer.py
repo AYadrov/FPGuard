@@ -72,7 +72,12 @@ def solver(constraints, arguments, exp, eps):
     """
     if eps <= 0:
         raise ValueError("eps should be > 0")
-    args = symbols(", ".join(chr(i + 97) for i, _ in enumerate(arguments)))
+    try:
+        # args = symbols(", ".join(chr(i + 97) for i, _ in enumerate(arguments)))
+        args = symbols(", ".join("x" + str(i) for i, _ in enumerate(arguments)))
+    except ValueError:
+        print()
+
     try:
         args = [*args]
     except TypeError:
@@ -80,35 +85,39 @@ def solver(constraints, arguments, exp, eps):
     eq = exp.strDenominator()
 
     eq = str(simplify(eq))
-    # constraint = f"(<<{eq} - {eps} >= 1e-300>>|<<{eq} + {eps} <= 1e-300>>)"
-    # # constraint = f"min(-({eq}) + {eps}, {eq} + {eps}) <= 1e-323"
-    # constraints.add(constraint)
-    # return constraints
+    constraint = f"(<<{eq} - {eps} >= 0>>|<<{eq} + {eps} <= 0>>)"
+    # # constraint = f"min(-({eq}) + {eps}, {eq} + {eps}) <= 0"
+    constraints.add(constraint)
+    return constraints
 
 
     # print(eq, "!= 0")
     for i, x in enumerate(arguments):
-        if i + 97 >= 101:  # 'e' symbol, we can not use it for decoding since we have numbers 1.0e-15
-            eq = eq.replace(x, chr(i + 1 + 97))
-        else:
-            eq = eq.replace(x, chr(i + 97))
+        # if i + 97 >= 101:  # 'e' symbol, we can not use it for decoding since we have numbers 1.0e-15
+        #     eq = eq.replace(x, chr(i + 1 + 97))
+        # else:
+        #     eq = eq.replace(x, chr(i + 97))
+        eq = eq.replace(x, "x" + str(i))
+
     for arg in args:
         res = str(solve(eq, arg))
 
         res = res.strip('][').split(', ')
 
-        if ord(arg.name) >= 102:
-            variable = arguments[ord(arg.name) - 98]
-        else:
-            variable = arguments[ord(arg.name) - 97]
+        # if ord(arg.name) >= 102:
+        #     variable = arguments[ord(arg.name) - 98]
+        # else:
+        #     variable = arguments[ord(arg.name) - 97]
+        variable = arguments[int(arg.name[1:])]
 
         for r in res:
             if r:
                 for i, x in enumerate(arguments):
-                    if i + 97 >= 101:
-                        r = r.replace(chr(i + 1 + 97), x).replace('[', '').replace(']', '')
-                    else:
-                        r = r.replace(chr(i + 97), x).replace('[', '').replace(']', '')
+                    # if i + 97 >= 101:
+                    #     r = r.replace(chr(i + 1 + 97), x).replace('[', '').replace(']', '')
+                    # else:
+                    #     r = r.replace(chr(i + 97), x).replace('[', '').replace(']', '')
+                    r = r.replace("x" + str(i), x).replace('[', '').replace(']', '')
                 if r.__contains__("sqrt"):
                     continue
 

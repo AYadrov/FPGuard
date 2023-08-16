@@ -352,11 +352,12 @@ def ibex_find_min(ibex_file):
     try:
         fp.write(ibex_file)
         fp.close()
+        print(ibex_file)
         # Use unreachable precision on purpose to get the most accurate results
         output = subprocess.run(
             f"ibexopt ibex_input.bch --simpl 2 -t{Globals.IBEX_TIMEOUT} --abs-eps-f={Globals.abs_precision_ibex}",
             shell=True, capture_output=True, text=True)
-        # print(output.stdout)
+        print(output.stdout)
         bound, points, cpu_time, number_of_cells = ibex_parser(output.stdout)
         if bound:
             minimum = min(bound)

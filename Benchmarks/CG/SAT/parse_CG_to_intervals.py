@@ -1,6 +1,6 @@
 import re
 
-with open("eps_CG_arc_noErr_K5_N130_E0.0.txt", 'r') as f:
+with open("CG_3iterations.txt", 'r') as f:
     out = ""
     pattern = re.compile(r".*\([-?0-9.0-9]|[-?0-9e].*,.*[-?0-9.0-9]|[-?0-9e]\).*")
     for line in f:
@@ -11,6 +11,6 @@ with open("eps_CG_arc_noErr_K5_N130_E0.0.txt", 'r') as f:
             out += line
         else:
             out += line
-    o = open("CG_intervals.txt", "w")
+    o = open("CG_3iterations_intervals.txt", "w")
     o.write(out)
     o.close()

@@ -865,4 +865,3 @@ class ExprComp(AST):
 										     for sl in rstrTup))
 
 		return "|".join(cexpr)
-

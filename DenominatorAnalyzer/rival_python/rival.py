@@ -60,6 +60,8 @@ def ival_add(x: ival or float or int,
 
     elif isinstance(x, ival) and (isinstance(y, float) or isinstance(y, int)):
         return ival_add(x, ival(y, y, False, False), precision=precision)
+    elif (isinstance(x, float) or isinstance(x, int)) and (isinstance(y, float) or isinstance(y, int)):
+        return ival_add(ival(x, x, False, False), ival(y, y, False, False), precision=precision)
     else:
         raise TypeError
 
@@ -129,6 +131,8 @@ def ival_sub(x: ival or float or int,
         return ival_sub(ival(x, x, False, False), y, precision=precision)
     elif isinstance(x, ival) and (isinstance(y, float) or isinstance(y, int)):
         return ival_sub(x, ival(y, y, False, False), precision=precision)
+    elif (isinstance(x, float) or isinstance(x, int)) and (isinstance(y, float) or isinstance(y, int)):
+        return ival_sub(ival(x, x, False, False), ival(y, y, False, False), precision=precision)
     else:
         raise TypeError
 
@@ -228,6 +232,8 @@ def ival_mul(x: ival or float or int,
         return ival_mul(x, ival(y, y, False, False), precision=precision)
     elif isinstance(y, ival) and (isinstance(x, float) or isinstance(x, int)):
         return ival_mul(ival(x, x, False, False), y, precision=precision)
+    elif (isinstance(x, float) or isinstance(x, int)) and (isinstance(y, float) or isinstance(y, int)):
+        return ival_mul(ival(x, x, False, False), ival(y, y, False, False), precision=precision)
     else:
         raise TypeError
 
@@ -270,6 +276,8 @@ def ival_div(x: ival or float or int,
 
     elif (isinstance(x, float) or isinstance(x, int)) and isinstance(y, ival):
         return ival_div(ival(x, x, False, False), y, precision=precision)
+    elif (isinstance(x, float) or isinstance(x, int)) and (isinstance(y, float) or isinstance(y, int)):
+        return ival_div(ival(x, x, False, False), ival(y, y, False, False), precision=precision)
     else:
         raise TypeError
 
@@ -429,6 +437,8 @@ def ival_pow(x, y, precision=113):
         return ival_pow(ival(x, x, False, False), y, precision=precision)
     elif isinstance(x, ival) and (isinstance(y, float) or isinstance(y, int)):
         return ival_pow(x, ival(y, y, False, False), precision=precision)
+    elif (isinstance(x, float) or isinstance(x, int)) and (isinstance(y, float) or isinstance(y, int)):
+        return ival_pow(ival(x, x, False, False), ival(y, y, False, False), precision=precision)
     else:
         raise TypeError
 
@@ -457,14 +467,6 @@ def ival_cmp(x: ival,
 
 
 if __name__ == "__main__":
-    x = ival(2, 2, False, False)
-
-    precision = 1
-    while not ival_cmp(ival_exp(x, precision=1000), ival_exp(x, precision=precision)):
-        precision+=1
-    print(precision)
-
-    precision = 1
-    while not ival_cmp(ival_sqrt(x, precision=1000), ival_sqrt(x, precision=precision)):
-        precision += 1
-    print(precision)
+    x = float(2.80259692865e-45)
+    y = float(3.40282346639e+38)
+    print(ival_div(y, x, precision=64))
