@@ -23,8 +23,8 @@ def process_function_(data, invert=False, precision=64):
     c, diff_exp, consts = pass_lift_consts(exp, inputs)
     sa_exp, assigns = pass_single_assignment(diff_exp, inputs)
 
-    Expressions, Variables, Consts, DivExpressions = output_rust_(sa_exp, inputs, consts, assigns, precision=precision)
-    return Expressions, Variables, Consts, DivExpressions
+    Expressions, Variables, Consts, DangerExpressions = output_rust_(sa_exp, inputs, consts, assigns, precision=precision)
+    return Expressions, Variables, Consts, DangerExpressions
 
 
 def main(argv):

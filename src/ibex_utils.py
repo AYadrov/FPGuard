@@ -386,7 +386,7 @@ def invoke_ibex(symExpr, cond_expr, externConstraints, inputStr):
 
     if Globals.enable_constr:
         if Globals.domain_checks:
-            _, denominator_constraints, _, _ = analyze_symbolic_expression(inputStr+str_expr, eps=Globals.domain_eps)
+            _, domain_constraints, _, _ = analyze_symbolic_expression(inputStr+str_expr, eps=Globals.domain_eps)
             for d in Globals.domainConds:
                 if externConstraints != "":
                     externConstraints += "&" + d
@@ -394,7 +394,7 @@ def invoke_ibex(symExpr, cond_expr, externConstraints, inputStr):
                 else:
                     # externConstraints += "<<" + d + ">>"
                     externConstraints += d
-            for d in denominator_constraints:
+            for d in domain_constraints:
                 if externConstraints != "":
                     # externConstraints += "&<<" + d + ">>"
                     externConstraints += "&" + d

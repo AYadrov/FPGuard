@@ -79,7 +79,7 @@ def output_rust_(exp, inputs, consts, assigns, precision=64):
 
     seen_assigns = set()
     Expressions = OrderedDict()
-    DivExpressions = []
+    DangerExpressions = []
 
     def _e_variable(work_stack, count, exp):
         assert(exp[0] == "Variable")
@@ -109,15 +109,15 @@ def output_rust_(exp, inputs, consts, assigns, precision=64):
 
     def _c_variable(work_stack, count, args):
         nonlocal Expressions
-        nonlocal DivExpressions
+        nonlocal DangerExpressions
         assert(args[0] == "Variable")
         assert(len(args) == 3)
         name = args[1]
         value = args[2]
         if value != None:
             Expressions[name] = value_to_ASTtype(value, name, Variables, Consts, Expressions)
-            if Expressions[name].operation == '/':
-                DivExpressions.append(name)
+            if Expressions[name].operation == '/' or Expressions[name].operation == 'log' or Expressions[name].operation == 'sqrt':
+                DangerExpressions.append(name)
 
         work_stack.append((True, count, [name]))
 
@@ -208,10 +208,10 @@ def output_rust_(exp, inputs, consts, assigns, precision=64):
     if retval != None:
         Expressions[name] = value_to_ASTtype(retval, name, Variables, Consts, Expressions)
         Expressions[name].root = True
-        if Expressions[name].operation == '/':
-            DivExpressions.append(name)
+        if Expressions[name].operation == '/' or Expressions[name].operation == 'sqrt' or Expressions[name].operation == 'log':
+            DangerExpressions.append(name)
 
-    return Expressions, Variables, Consts, DivExpressions
+    return Expressions, Variables, Consts, DangerExpressions
 
 
 def main(argv):

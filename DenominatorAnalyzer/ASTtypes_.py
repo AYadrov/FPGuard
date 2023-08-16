@@ -85,11 +85,13 @@ class Expr:
     def getArgs(self):
         return list(np.unique(np.array(self.search_for_args())))
 
-    def getDenominatorArgs(self):
+    def getDangerRegion(self):
         if self.operation == "/":
             return self.right_child.getArgs()
+        elif self.operation == "sqrt" or self.operation == "log":
+            return self.left_child.getArgs()
         else:
-            raise TypeError("Expression operator is not division to take denominator!")
+            raise TypeError("Expression operator is not division nor log nor sqrt to take danger region!")
 
     def search_for_args(self):
         left_args = self.left_child.search_for_args()
@@ -118,11 +120,13 @@ class Expr:
             s = str("(" + self.left_child.__str__() + ")" + OP_TO_STR[self.operation] + "(" + self.right_child.__str__() + ")")
             return s
 
-    def strDenominator(self):
+    def strDangerRegion(self):
         if self.operation == "/":
             return self.right_child.__str__()
+        elif self.operation == "sqrt" or self.operation == "log":
+            return self.left_child.__str__()
         else:
-            raise TypeError("Expression operator is not division to take denominator!")
+            raise TypeError("Expression operator is not division nor log nor sqrt to take danger region!")
 
 
 class Const:

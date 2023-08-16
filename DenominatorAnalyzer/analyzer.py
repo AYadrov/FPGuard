@@ -82,10 +82,15 @@ def solver(constraints, arguments, exp, eps):
         args = [*args]
     except TypeError:
         args = [args]
-    eq = exp.strDenominator()
+    eq = exp.strDangerRegion()
 
     eq = str(simplify(eq))
-    constraint = f"(<<{eq} - {eps} >= 0>>|<<{eq} + {eps} <= 0>>)"
+    if exp.operation == "/":
+        constraint = f"(<<{eq} - {eps} >= 0>>|<<{eq} + {eps} <= 0>>)"
+    elif exp.operation == "log" or exp.operation == "sqrt":
+        constraint = f"<<{eq} + {eps} >= 0>>"
+    else:
+        raise TypeError("Expression operator is not division nor log nor sqrt to take danger region!")
     # # constraint = f"min(-({eq}) + {eps}, {eq} + {eps}) <= 0"
     constraints.add(constraint)
     return constraints
@@ -151,20 +156,21 @@ def analyze_symbolic_expression(symb_expr, eps):
         Expressions: Computational Graph of parsed symb_expr;
         DivExpressions: Nodes from Computational Graph which contain division in their root.
     """
-    Expressions, Variables, Consts, DivExpressions = process_function_(symb_expr)
+    Expressions, Variables, Consts, DangerExpressions = process_function_(symb_expr)
 
     constraints_list = set()
-    DivExpressions = list(set(DivExpressions))
-    for exp in DivExpressions:
-        denominator_arguments = Expressions[exp].getDenominatorArgs()
+    DangerExpressions = list(set(DangerExpressions))
+    for exp in DangerExpressions:
+        danger_expression = Expressions[exp].getDangerRegion()
 
         res = Expressions[exp].evaluate()
         if res.err_exact:
-            print(f"fDenominatorAnalyzer: unable to avoid infinity in denominator:\n{Expressions[exp].strDenominator()}")
+            print(f"Analyzer: unable to avoid infinity in expression:\n{Expressions[exp].__str__()}")
         if res.err_possible:
-            constraints_list = solver(constraints_list, denominator_arguments, Expressions[exp], eps)
+            constraints_list = solver(constraints_list, danger_expression, Expressions[exp], eps)
 
-    return Variables, list(constraints_list), Expressions, DivExpressions
+
+    return Variables, list(constraints_list), Expressions, DangerExpressions
 
 
 def create_input_paver_file(variables, constraints, precision=0.01):

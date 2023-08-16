@@ -467,6 +467,7 @@ def ival_cmp(x: ival,
 
 
 if __name__ == "__main__":
-    x = float(2.80259692865e-45)
-    y = float(3.40282346639e+38)
-    print(ival_div(y, x, precision=64))
+    x = float(2.80259692865e-100)
+    y = float(3.40282346639e+400)
+    print(ival_div(y, x, precision=32))
+    print(float(float(3.40282346639e+400)/float(2.80259692865e-100)))
